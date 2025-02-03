@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление заказами в ресторане</title>
+    <script src="main.js" defer></script>
+    <style>
+        .menu-item {
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .menu-item:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Меню ресторана</h1>
+    <h2>Блюда и их стоимость</h2>
+    <ul id="menu">
+        <li class="menu-item" data-price="500" data-cooking-time="15">Пицца "Маргарита" - 500 руб.</li>
+        <li class="menu-item" data-price="600" data-cooking-time="20">Пицца "Пепперони" - 600 руб.</li>
+        <li class="menu-item" data-price="700" data-cooking-time="10">Суши "Филадельфия" - 700 руб.</li>
+        <li class="menu-item" data-price="800" data-cooking-time="12">Суши "Калифорния" - 800 руб.</li>
+        <li class="menu-item" data-price="300" data-cooking-time="5">Тирамису - 300 руб.</li>
+        <li class="menu-item" data-price="350" data-cooking-time="7">Чизкейк - 350 руб.</li>
+    </ul>
+
+    <h2>Разместить заказ</h2>
+    <form id="orderForm">
+        <label for="clientName">Имя клиента:</label>
+        <input type="text" id="clientName" required>
+        <br>
+        <h3>Заказанные блюда:</h3>
+        <ul id="ordersList"></ul>
+        <p>Общая стоимость: <span id="totalPrice">0</span> руб.</p>
+        <p>Примерное время ожидания: <span id="estimatedTime">0</span> мин.</p>
+        <button type="submit">Разместить заказ</button>
+    </form>
+
+    <script>
+        const menuItems = document.querySelectorAll('.menu-item');
+        const ordersList = document.getElementById('ordersList');
+        const totalPriceElement = document.getElementById('totalPrice');
+        const estimatedTimeElement = document.getElementById('estimatedTime');
+        let totalPrice = 0;
+        let totalCookingTime = 0;
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const price = parseInt(item.getAttribute('data-price'));
+                const cookingTime = parseInt(item.getAttribute('data-cooking-time'));
+                const dishName = item.textContent;
+
+                const orderItem = document.createElement('li');
+                orderItem.textContent = `${dishName} - ${price} руб.`;
+                ordersList.appendChild(orderItem);
+
+                totalPrice += price;
+                totalCookingTime += cookingTime;
+                totalPriceElement.textContent = totalPrice;
+                estimatedTimeElement.textContent = totalCookingTime;
+            });
+        });
+
+        document.getElementById('orderForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const clientName = document.getElementById('clientName').value;
+            alert(`Заказ от ${clientName} размещен на сумму ${totalPrice} руб. Примерное время ожидания: ${totalCookingTime} мин.`);
+            ordersList.innerHTML = '';
+            totalPrice = 0;
+            totalCookingTime = 0;
+            totalPriceElement.textContent = totalPrice;
+            estimatedTimeElement.textContent = totalCookingTime;
+        });
+    </script>
+</body>
+</html>

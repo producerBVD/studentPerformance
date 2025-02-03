@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Список студентов</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Список студентов первого курса (Автомеханик)</h1>
+    <ul id="student-list"></ul> <!-- Список студентов -->
+
+    <button onclick="location.href='schedule.html'">Назад к расписанию</button>
+
+    <div id="edit-form" style="display: none;">
+      <h2>Редактировать успеваемость студента</h2>
+      <label for="student-name">Имя студента:</label>
+      <input type="text" id="student-name" disabled />
+      <label for="lessons">Уроки:</label>
+      <input type="text" id="lessons" />
+      <button id="save-button">Сохранить</button>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+      const studentListElement = document.getElementById("student-list");
+      const editForm = document.getElementById("edit-form");
+      const studentNameInput = document.getElementById("student-name");
+      const lessonsInput = document.getElementById("lessons");
+      const saveButton = document.getElementById("save-button");
+
+      // Map для хранения соответствия между уроками и преподавателями
+      const lessonTeacherMap = new Map([
+        ["Математика", "Иванов И.И."],
+        ["Физика", "Петров П.П."],
+        ["Химия", "Сидоров С.С."],
+        ["География", "Кузнецов К.К."],
+        ["Музыка", "Смирнов С.С."],
+        ["История", "Алексеев А.А."],
+      ]);
+
+      // Map для хранения студентов и их посещаемых уроков
+      const studentLessonsMap = new Map([
+        ["Иванов И.И.", new Set(["Математика", "Физика"])],
+        ["Петров П.П.", new Set(["Физика", "Химия"])],
+        ["Сидоров С.С.", new Set(["Математика", "История"])],
+
+      ]);
+
+      students.forEach((student) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = student.name;
+        listItem.onclick = () => {
+          const lessons = studentLessonsMap.get(student.name);
+          if (lessons) {
+            studentNameInput.value = student.name;
+            lessonsInput.value = Array.from(lessons).join(", ");
+          } else {
+            alert(`${student.name} не посещал уроки.`);
+          }
+        };
+        studentListElement.appendChild(listItem); // Добавление студента в список
+      });
+
+      saveButton.onclick = () => {
+        const studentName = studentNameInput.value;
+        const lessonsArray = lessonsInput.value.split(",").map(lesson => lesson.trim());
+        studentLessonsMap.set(studentName, new Set(lessonsArray)); // Обновить уроки студента
+        alert(`Успеваемость студента ${studentName} обновлена.`);
+        editForm.style.display = "none"; // Скрыть форму редактирования
+      };
+    </script>
+  </body>
+</html>
+</create_file>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Список студентов</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Список студентов первого курса (Автомеханик)</h1>
+    <ul id="student-list"></ul> <!-- Список студентов -->
+
+    <button onclick="location.href='schedule.html'">Назад к расписанию</button>
+
+    <div id="edit-form" style="display: none;">
+      <h2>Редактировать успеваемость студента</h2>
+      <label for="student-name">Имя студента:</label>
+      <input type="text" id="student-name" disabled />
+      <label for="lessons">Уроки:</label>
+      <input type="text" id="lessons" />
+      <button id="save-button">Сохранить</button>
+    </div>
+
+    <script src="main.js"></script> <!-- Подключение основного скрипта -->
+    <script src="studentPerformance.js" type="module"></script> <!-- Подключение скрипта для успеваемости студентов -->
+    <script>
+      const studentListElement = document.getElementById("student-list"); // Получение элемента списка студентов
+      const editForm = document.getElementById("edit-form"); // Получение элемента формы редактирования
+      const studentNameInput = document.getElementById("student-name"); // Получение элемента для имени студента
+      const lessonsInput = document.getElementById("lessons"); // Получение элемента для уроков
+      const saveButton = document.getElementById("save-button"); // Получение кнопки сохранения
+
+      students.forEach((student) => {
+        const listItem = document.createElement("li"); // Создание элемента списка для студента
+        listItem.textContent = student.name; // Установка имени студента
+        // Удален обработчик клика на имя студента
+        studentListElement.appendChild(listItem); // Добавление студента в список
+      });
+
+      saveButton.onclick = () => { // Обработчик клика на кнопку сохранения
+        const studentName = studentNameInput.value; // Получение имени студента
+        const lessonsArray = lessonsInput.value.split(",").map(lesson => lesson.trim()); // Получение уроков из формы
+        updateStudentLessons(studentName, lessonsArray); // Обновление уроков студента
+        alert(`Успеваемость студента ${studentName} обновлена.`); // Сообщение об обновлении
+        editForm.style.display = "none"; // Скрыть форму редактирования
+      };
+    </script>
+  </body>
+</html>
+</create_file>

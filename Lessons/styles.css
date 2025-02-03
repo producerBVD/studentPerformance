@@ -1,0 +1,57 @@
+/* Стили для расписания */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Уникальные пастельные цвета для каждого дня недели */
+.day-monday {
+  background-color: #ffcccb; /* Розовый */
+}
+
+.day-tuesday {
+  background-color: #ffebcd; /* Бежевый */
+}
+
+.day-wednesday {
+  background-color: #add8e6; /* Голубой */
+}
+
+.day-thursday {
+  background-color: #e6e6fa; /* Лаванда */
+}
+
+.day-friday {
+  background-color: #ffe4e1; /* Лососевый */
+}
+
+/* Стили для заголовков и ячеек */
+.week-header {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.day-schedule {
+  transition: background-color 0.3s;
+}
+
+.day-schedule:hover {
+  background-color: #f0f0f0; /* Цвет при наведении */
+}
+
+/* Адаптивные стили */
+@media (max-width: 600px) {
+  table {
+    font-size: 14px; /* Уменьшение шрифта на маленьких экранах */
+  }
+}

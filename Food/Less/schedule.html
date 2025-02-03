@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Расписание студентов первого курса</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left; /* Выравнивание заголовков по левому краю */
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .day-header, .week-header {
+        background-color: #cccccc; /* Цвет для всех дней недели */
+        cursor: pointer;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js"></script>
+    <script src="scheduleGenerator.js"></script>
+  </head>
+  <body>
+    <h1>Расписание студентов первого курса (Автомеханик)</h1>
+    
+    <h2>Расписание на месяц</h2>
+    <button onclick="location.href='students.html'">Перейти к студентам</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Неделя</th>
+          <th>День</th>
+          <th>Преподаватель</th>
+          <th>Предмет</th>
+          <th>Время</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Динамически сгенерированные строки расписания будут добавлены здесь -->
+      </tbody>
+    </table>
+
+    <script>
+      function toggleDay(header) {
+        let daySchedules = header.nextElementSibling;
+        while (daySchedules && !daySchedules.classList.contains('day-header')) {
+          daySchedules.classList.toggle('hidden');
+          daySchedules = daySchedules.nextElementSibling;
+        }
+      }
+
+      function toggleWeek(weekId) {
+        const weekHeaders = document.querySelectorAll('.week-header');
+        weekHeaders.forEach(header => {
+          if (header.id === weekId) {
+            let weekSchedules = header.nextElementSibling;
+            while (weekSchedules && !weekSchedules.classList.contains('week-header')) {
+              weekSchedules.classList.toggle('hidden');
+              weekSchedules = weekSchedules.nextElementSibling;
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+</create_file>
